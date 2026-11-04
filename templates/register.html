@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Register Student | FaceAttend{% endblock %}
+{% block heading %}Register Student{% endblock %}
+{% block content %}
+<div class="page-intro"><h1>Add a new student</h1><p>Enter student details, then capture face samples using your webcam.</p></div>
+<div class="form-layout">
+  <div class="panel"><div class="panel-heading"><div><h3>Student Information</h3><p>Basic details for the student profile</p></div><span class="step-tag">STEP 01</span></div>
+    <form method="POST" class="form-stack"><label>Student ID<input name="student_id" id="studentId" placeholder="e.g. STU001" required></label><label>Full Name<input name="name" placeholder="Enter student's full name" required></label><label>Department<select name="department" required><option value="">Select department</option><option>CSE</option><option>ECE</option><option>EEE</option><option>Mechanical</option><option>Civil</option><option>Other</option></select></label><button class="button primary full" type="submit">Save Student Details →</button></form>
+  </div>
+  <div class="panel"><div class="panel-heading"><div><h3>Face Enrollment</h3><p>Capture up to 20 face samples</p></div><span class="step-tag">STEP 02</span></div>
+    <div class="camera-box"><video id="video" autoplay playsinline muted></video><canvas id="canvas" hidden></canvas><div id="cameraPlaceholder" class="camera-placeholder"><span>◎</span><strong>Camera preview</strong><small>Allow camera access to begin</small></div></div>
+    <div class="camera-actions"><button class="button secondary" id="startCamera" type="button">Start Camera</button><button class="button primary" id="captureFace" type="button" disabled>Capture Face</button></div>
+    <div class="progress-head"><span>Face samples</span><strong id="sampleCount">0 / 20</strong></div><div class="progress-track"><div id="sampleProgress" class="progress-fill"></div></div>
+    <p class="helper-text" id="captureMessage">Save student details first, then enter the Student ID above.</p>
+    <div class="form-stack compact"><label>Student ID for face capture<input id="captureStudentId" placeholder="Enter the saved Student ID"></label><button class="button dark full" id="trainModel" type="button">Train Recognition Model</button></div>
+    <p class="helper-text" id="trainMessage">Train the model after capturing face samples.</p>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script>setupEnrollment();</script>{% endblock %}

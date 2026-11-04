@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | FaceAttend{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><h1>Good day, Admin <span>✦</span></h1><p>Here’s what’s happening with attendance today.</p></div><a class="button primary" href="{{ url_for('recognition') }}">◎ Start Recognition</a></div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-top"><span>Total Students</span><span class="stat-icon blue">♙</span></div><strong>{{ stats.total }}</strong><small>Registered students</small></div>
+  <div class="stat-card"><div class="stat-top"><span>Present Today</span><span class="stat-icon green">✓</span></div><strong>{{ stats.present }}</strong><small>Attendance marked</small></div>
+  <div class="stat-card"><div class="stat-top"><span>Absent Today</span><span class="stat-icon orange">◷</span></div><strong>{{ stats.absent }}</strong><small>Not yet marked</small></div>
+  <div class="stat-card"><div class="stat-top"><span>Attendance Rate</span><span class="stat-icon purple">％</span></div><strong>{{ stats.percentage }}%</strong><small>Today's participation</small></div>
+</div>
+<div class="content-grid">
+  <div class="panel"><div class="panel-heading"><div><h3>Quick Actions</h3><p>Manage your attendance workflow</p></div></div><div class="quick-grid">
+    <a class="quick-action" href="{{ url_for('register') }}"><span class="quick-icon blue">＋</span><strong>Register Student</strong><small>Add a student and capture face samples</small></a>
+    <a class="quick-action" href="{{ url_for('recognition') }}"><span class="quick-icon green">◎</span><strong>Mark Attendance</strong><small>Recognize a face using the webcam</small></a>
+    <a class="quick-action" href="{{ url_for('records') }}"><span class="quick-icon purple">▤</span><strong>View Records</strong><small>Check daily attendance records</small></a>
+  </div></div>
+  <div class="panel system-panel"><div class="panel-heading"><div><h3>System Overview</h3><p>Current system status</p></div><span class="status-pill">● Active</span></div><div class="system-line"><span>Face recognition engine</span><b>OpenCV</b></div><div class="system-line"><span>Backend service</span><b>Flask / Python</b></div><div class="system-line"><span>Database</span><b>SQLite</b></div><div class="system-note">Tip: Capture multiple face samples in different lighting conditions for better recognition.</div></div>
+</div>
+<div class="panel table-panel"><div class="panel-heading"><div><h3>Recently Registered Students</h3><p>Your latest student profiles</p></div><a class="text-link" href="{{ url_for('register') }}">+ Add student</a></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>DEPARTMENT</th><th>STATUS</th></tr></thead><tbody>
+{% for student in students %}<tr><td><div class="person-cell"><span class="person-avatar">{{ student.name[:1]|upper }}</span><strong>{{ student.name }}</strong></div></td><td>{{ student.student_id }}</td><td>{{ student.department }}</td><td><span class="status-pill">Registered</span></td></tr>{% else %}<tr><td colspan="4" class="empty-state">No students yet. Register your first student to get started.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

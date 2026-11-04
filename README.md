@@ -42,3 +42,30 @@ http://127.0.0.1:5000
 - Attendance is marked at most once per student per calendar day.
 - To reset the demo, stop the app and delete `attendance.db`, `dataset/students/` contents and `trained_model/` contents.
 - For deployment beyond your own computer, add authentication, HTTPS, authorization, audit logs, data retention controls and stronger anti-spoofing checks. Do not expose the Flask development server to the public internet.
+
+
+## Vercel deployment (demo / testing)
+
+This project includes `api/index.py` and `vercel.json` for Vercel's Python
+function routing. Push this folder's contents to the root of a GitHub
+repository, import that repository into Vercel, and deploy.
+
+### Important storage limitation
+
+The Vercel adaptation writes SQLite, face samples and the trained LBPH model
+under `/tmp` so the function can start without trying to write to the
+read-only deployment directory. `/tmp` is temporary and can be cleared or
+isolated between serverless instances. Therefore student registrations,
+attendance, face samples and trained models are NOT durable or reliable on
+Vercel with this configuration. This ZIP is suitable for checking that the
+Flask app routes/templates can deploy, not for running a real attendance
+system. For real use, migrate SQLite to a hosted persistent database and
+store face images/model artifacts in persistent object storage, then update
+the app to use those services.
+
+### Webcam and security notes
+
+Deploy over HTTPS so browser camera access can work. Set a strong `SECRET_KEY`
+in Vercel Project Settings > Environment Variables. This starter has no
+authentication/authorization layer; do not expose student biometric data
+publicly. Obtain informed consent and restrict access to face data.

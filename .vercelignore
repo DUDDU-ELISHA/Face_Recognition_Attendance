@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+attendance.db
+dataset/
+trained_model/
+.git/

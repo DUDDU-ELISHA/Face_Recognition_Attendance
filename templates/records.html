@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Attendance Records | FaceAttend{% endblock %}
+{% block heading %}Attendance Records{% endblock %}
+{% block content %}
+<div class="page-intro"><h1>Attendance history</h1><p>Review the attendance entries recorded by face recognition.</p></div>
+<div class="panel table-panel"><div class="panel-heading"><div><h3>Daily attendance</h3><p>{{ records|length }} record(s) for the selected date</p></div><form class="date-filter" method="GET"><input type="date" name="date" value="{{ selected_date }}"><button class="button primary small" type="submit">Filter</button></form></div>
+<div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>DEPARTMENT</th><th>TIME</th><th>STATUS</th></tr></thead><tbody>
+{% for row in records %}<tr><td><div class="person-cell"><span class="person-avatar">{{ row.name[:1]|upper }}</span><strong>{{ row.name }}</strong></div></td><td>{{ row.student_id }}</td><td>{{ row.department }}</td><td>{{ row.attendance_time }}</td><td><span class="attendance-badge">● {{ row.status }}</span></td></tr>{% else %}<tr><td colspan="5" class="empty-state">No attendance records for this date.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

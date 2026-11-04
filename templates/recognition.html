@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Face Recognition | FaceAttend{% endblock %}
+{% block heading %}Face Recognition{% endblock %}
+{% block content %}
+<div class="page-intro"><h1>Mark attendance with a face scan</h1><p>Position one person's face in the camera frame. Attendance is recorded once per day.</p></div>
+<div class="recognition-layout">
+  <div class="panel"><div class="panel-heading"><div><h3>Live Face Scanner</h3><p>Make sure your camera is connected</p></div><span class="status-pill"><span class="live-dot"></span> Live</span></div>
+    <div class="camera-box recognition-camera"><video id="video" autoplay playsinline muted></video><canvas id="canvas" hidden></canvas><div id="cameraPlaceholder" class="camera-placeholder"><span>◎</span><strong>Ready to scan</strong><small>Start the camera to begin recognition</small></div><div class="scan-frame"></div></div>
+    <div class="camera-actions"><button class="button secondary" id="startCamera" type="button">Start Camera</button><button class="button primary" id="scanFace" type="button" disabled>Scan & Mark Attendance</button></div>
+    <p class="helper-text" id="scanMessage">Please start your camera. Train the model before scanning.</p>
+  </div>
+  <div class="panel result-panel"><div class="panel-heading"><div><h3>Recognition Result</h3><p>Student details will appear here</p></div></div><div id="recognitionResult" class="result-empty"><span>♙</span><strong>Waiting for scan</strong><small>Recognized student information will be displayed here.</small></div></div>
+</div>
+{% endblock %}
+{% block scripts %}<script>setupRecognition();</script>{% endblock %}
